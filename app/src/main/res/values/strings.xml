@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Foodoo</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="btnAddToCart">Add To Cart</string>
+    <string name="cart_items">Cart Items</string>
+</resources>
