@@ -1,0 +1,17 @@
+{
+  "items": [
+    {
+      "name": "Filter Coffee",
+      "price": 50
+    },
+    {
+      "name": "Dosa",
+      "price": 80
+    },
+    {
+      "name": "Samosa",
+      "price": 20
+    }
+  ]
+}
+
