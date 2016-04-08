@@ -1,5 +1,7 @@
 package rajkiranbande.foodoo;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -7,14 +9,22 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
@@ -23,16 +33,18 @@ public class MainActivity extends AppCompatActivity
     private static final int FOOD_LIST = 0;
     private static final int FOOD_DETAILS = 1;
     private static final int CART = 2;
+    private static final int ADDRESS = 3;
     private ListView foodList;
-    private String[] foodItems = new String[]{"Filter Coffee","Idli","Masala Dosa","Pani Puri","Bhel","Roti Sabzi","Raj Kachori","Subway Sandwich","Kadhi Chaval","Dal Makhani","Plain Dal","Ice cream","Sheera","Brownie","Cold Coffee","Lime Juice","Masala Chai"};
-    private ArrayAdapter<String> foodAdapter;
+    private ArrayList<FoodItem> foodItems;
+    private ArrayAdapter<FoodItem> foodAdapter;
     private int screenIndex;
-    private String selectedFoodItem;
-    private ArrayList<String> cartItems;
+    private FoodItem selectedFoodItem;
+    private ArrayList<FoodItem> cartItems;
     private ListView lvCartItems;
-    private ArrayAdapter<String> cartAdapter;
+    private ArrayAdapter<FoodItem> cartAdapter;
+  private double total;
 
-    @Override
+  @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -48,48 +60,74 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        cartItems = new ArrayList<String>();
+        cartItems = new ArrayList<FoodItem>();
+        foodItems = readFoodItemsFromJson();
         initializeViews();
         showScreen(FOOD_LIST);
     }
 
-    private void initializeViews() {
+  private ArrayList<FoodItem> readFoodItemsFromJson() {
+    String foodJson = loadJsonFromAssets();
+    ArrayList<FoodItem> foods = new ArrayList<FoodItem>();
+    try {
+      JSONObject foodJsonObj = new JSONObject(foodJson);
+      JSONArray foodJsonArr = foodJsonObj.getJSONArray("items");
+      for (int i = 0; i < foodJsonArr.length(); i++) {
+        JSONObject food = (JSONObject)foodJsonArr.get(i);
+        FoodItem item = new FoodItem(food.getString("name"), Double.parseDouble(food.getString("price")));
+        foods.add(item);
+      }
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
+    return foods;
+  }
+
+  private void initializeViews() {
         foodList = (ListView)findViewById(R.id.lvFoodItems);
-        foodAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, foodItems);
+        foodAdapter = new FoodItemAdapter<FoodItem>(this, R.layout.food_item,   foodItems);
         foodList.setAdapter(foodAdapter);
         foodList.setOnItemClickListener(this);
         foodAdapter.notifyDataSetChanged();
 
         lvCartItems = (ListView) findViewById(R.id.lvCartItems);
-        cartAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, cartItems);
+        cartAdapter = new FoodItemAdapter<FoodItem>(this, R.layout.food_item,   cartItems);
         lvCartItems.setAdapter(cartAdapter);
         lvCartItems.setOnItemClickListener(this);
         cartAdapter.notifyDataSetChanged();
 
         findViewById(R.id.btnAddToCart).setOnClickListener(this);
+        findViewById(R.id.btnCheckout).setOnClickListener(this);
+        findViewById(R.id.btnProceed).setOnClickListener(this);
     }
 
-    private void showScreen(int screenIndex) {
-        findViewById(R.id.vgFoodList).setVisibility(View.GONE);
-        findViewById(R.id.vgFoodItemDetails).setVisibility(View.GONE);
-        findViewById(R.id.vgCart).setVisibility(View.GONE);
+  private void showScreen(int screenIndex) {
+    findViewById(R.id.vgFoodList).setVisibility(View.GONE);
+    findViewById(R.id.vgFoodItemDetails).setVisibility(View.GONE);
+    findViewById(R.id.vgCart).setVisibility(View.GONE);
+    findViewById(R.id.vgAddress).setVisibility(View.GONE);
 
-        this.screenIndex = screenIndex;
-        switch (screenIndex) {
-            case FOOD_LIST:
-                findViewById(R.id.vgFoodList).setVisibility(View.VISIBLE);
-                break;
+    this.screenIndex = screenIndex;
+    switch (screenIndex) {
+      case FOOD_LIST:
+        findViewById(R.id.vgFoodList).setVisibility(View.VISIBLE);
+        break;
 
-            case FOOD_DETAILS:
-                findViewById(R.id.vgFoodItemDetails).setVisibility(View.VISIBLE);
-                break;
+      case FOOD_DETAILS:
+        findViewById(R.id.vgFoodItemDetails).setVisibility(View.VISIBLE);
+        break;
 
-            case CART:
-                findViewById(R.id.vgCart).setVisibility(View.VISIBLE);
-                cartAdapter.notifyDataSetChanged();
-                break;
-        }
+      case CART:
+        cartItems.add(new FoodItem("Total", getTotal()));
+        findViewById(R.id.vgCart).setVisibility(View.VISIBLE);
+        cartAdapter.notifyDataSetChanged();
+        break;
+
+      case ADDRESS:
+        findViewById(R.id.vgAddress).setVisibility(View.VISIBLE);
+        break;
     }
+  }
 
     @Override
     public void onBackPressed() {
@@ -137,6 +175,8 @@ public class MainActivity extends AppCompatActivity
             showScreen(FOOD_LIST);
         } else if (id == R.id.nav_cart) {
             showScreen(CART);
+        } else if (id == R.id.nav_address) {
+            showScreen(CART);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -151,12 +191,95 @@ public class MainActivity extends AppCompatActivity
         fillFoodDetails(selectedFoodItem);
     }
 
-    private void fillFoodDetails(String foodTitle) {
-        ((TextView)findViewById(R.id.tvFoodTitle)).setText(foodTitle);
+    private void fillFoodDetails(FoodItem food) {
+        ((TextView)findViewById(R.id.tvFoodTitle)).setText(food.getFoodName());
+        ((TextView)findViewById(R.id.tvFoodPriceInDouble)).setText(""+food.getFoodPrice());
     }
 
     @Override
     public void onClick(View v) {
-        cartItems.add(selectedFoodItem);
+        switch (v.getId()) {
+          case R.id.btnAddToCart:
+            cartItems.add(selectedFoodItem);
+            break;
+          case R.id.btnCheckout:
+            showScreen(ADDRESS);
+            break;
+          case R.id.btnProceed:
+
+            break;
+        }
     }
+
+    public String loadJsonFromAssets() {
+        String json = null;
+        try {
+            InputStream is = getAssets().open("items.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
+    }
+
+  public double getTotal() {
+    double total = 0.0d;
+    for (int i = 0; i < cartItems.size(); i++) {
+      total += cartItems.get(i).getFoodPrice();
+    }
+    return total;
+  }
+
+  public class FoodItemAdapter<F> extends ArrayAdapter<FoodItem> {
+    private final Context context;
+    private final ArrayList<FoodItem> data;
+    private final int layoutResourceId;
+
+    public FoodItemAdapter(Context context, int layoutResourceId, ArrayList<FoodItem> data) {
+      super(context, layoutResourceId, data);
+      this.context = context;
+      this.data = data;
+      this.layoutResourceId = layoutResourceId;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+      View row = convertView;
+      ViewHolder holder = null;
+
+      if(row == null)
+      {
+        LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+        row = inflater.inflate(R.layout.food_item, parent, false);
+
+        holder = new ViewHolder();
+        holder.textView1 = (TextView)row.findViewById(R.id.tvFoodName);
+        holder.textView2 = (TextView)row.findViewById(R.id.tvFoodPrice);
+
+        row.setTag(holder);
+      }
+      else
+      {
+        holder = (ViewHolder)row.getTag();
+      }
+
+      FoodItem person = data.get(position);
+
+      holder.textView1.setText(person.getFoodName());
+      holder.textView2.setText(person.getFoodPrice()+"");
+
+      return row;
+    }
+
+    class ViewHolder
+    {
+      TextView textView1;
+      TextView textView2;
+    }
+  }
 }

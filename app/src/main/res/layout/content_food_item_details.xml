@@ -25,6 +25,18 @@
         style="@android:style/TextAppearance.DeviceDefault.Small"
         android:id="@+id/tvFoodDescription"/>
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@android:style/TextAppearance.DeviceDefault.Medium"
+        android:text="100Rs."
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="25dp"
+        android:id="@+id/tvFoodPriceInDouble"/>
+
     <Button
         android:id="@+id/btnAddToCart"
         android:gravity="center_horizontal"
