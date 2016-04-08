@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity
     private static final int FOOD_DETAILS = 1;
     private static final int CART = 2;
     private ListView foodList;
-    private String[] foodItems = new String[]{"Pav Bhaji","Idli","Masala Dosa","Pani Puri","Bhel","Roti Sabzi","Raj Kachori","Subway Sandwich","Kadhi Chaval","Dal Makhani","Plain Dal","Ice cream","Sheera","Brownie","Cold Coffee","Lime Juice","Filter Coffee","Masala Chai"};
+    private String[] foodItems = new String[]{"Filter Coffee","Idli","Masala Dosa","Pani Puri","Bhel","Roti Sabzi","Raj Kachori","Subway Sandwich","Kadhi Chaval","Dal Makhani","Plain Dal","Ice cream","Sheera","Brownie","Cold Coffee","Lime Juice","Masala Chai"};
     private ArrayAdapter<String> foodAdapter;
     private int screenIndex;
     private String selectedFoodItem;
