@@ -17,7 +17,7 @@
 
     <Button
         android:layout_width="wrap_content"
-        android:text="Proceed"
+        android:text="Submit"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
         android:layout_height="wrap_content" android:id="@+id/btnProceed"/>

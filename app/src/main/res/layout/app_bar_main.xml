@@ -18,6 +18,5 @@
     <include layout="@layout/content_main" android:id="@+id/vgFoodList"/>
     <include layout="@layout/content_food_item_details" android:id="@+id/vgFoodItemDetails" />
     <include layout="@layout/content_cart" android:id="@+id/vgCart" />
-    <include layout="@layout/content_address" android:id="@+id/vgAddress" />
 
 </android.support.design.widget.CoordinatorLayout>
