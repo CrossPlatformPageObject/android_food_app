@@ -1,25 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
-    <EditText
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <TextView
         android:layout_width="match_parent"
-        android:maxLines="1"
+        android:layout_height="match_parent"
         android:layout_marginTop="60dp"
-        android:layout_height="wrap_content" android:id="@+id/tvName"/>
+        android:labelFor="@+id/tvName"
+        android:text="Enter Name: "/>
 
     <EditText
-        android:layout_marginTop="20dp"
+        android:id="@+id/tvName"
         android:layout_width="match_parent"
-        android:maxLines="3"
-        android:layout_height="wrap_content" android:id="@+id/tvAddress"/>
+        android:layout_height="wrap_content"
+        android:maxLines="1"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:labelFor="@+id/tvAddress"
+        android:text="Enter Name: "/>
+
+    <EditText
+        android:id="@+id/tvAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="address"
+        android:maxLines="3"/>
 
     <Button
+        android:id="@+id/btnProceed"
         android:layout_width="wrap_content"
-        android:text="Submit"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
-        android:layout_height="wrap_content" android:id="@+id/btnProceed"/>
+        android:text="Submit"/>
 
 </LinearLayout>

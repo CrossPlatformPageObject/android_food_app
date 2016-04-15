@@ -1,25 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="fill_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent" android:layout_height="@dimen/nav_header_height"
+              android:background="@drawable/side_nav_bar"
+              android:paddingBottom="@dimen/activity_vertical_margin"
+              android:paddingLeft="@dimen/activity_horizontal_margin"
+              android:paddingRight="@dimen/activity_horizontal_margin"
+
+              android:layout_marginTop="80dp" android:orientation="vertical"
+              android:gravity="bottom">
+
+    <RadioGroup android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rgPayment"
+                android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/radio_cash"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-    <RadioButton android:id="@+id/radio_cash"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text="@string/cash"
-                 android:onClick="onRadioButtonClicked"/>
-    <RadioButton android:id="@+id/radio_credit"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text="@string/credit"
-                 android:onClick="onRadioButtonClicked"/>
+            android:text="@string/cash"/>
+
+        <RadioButton
+            android:id="@+id/radio_credit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/credit"/>
+    </RadioGroup>
 
     <Button
         android:id="@+id/btnPaymentPreference"
-        android:gravity="center_horizontal"
-        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
         android:text="@string/btnPaymentPrefernece"/>
-
-</RadioGroup>
+</LinearLayout>
