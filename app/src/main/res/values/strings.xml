@@ -7,7 +7,7 @@
     <string name="action_settings">Settings</string>
     <string name="btnAddToCart">Add To Cart</string>
     <string name="cart_items">Cart Items</string>
-    <string name="cash">Cash On Delivery</string>
-    <string name="credit">Pay by credit Card</string>
+    <string name="cash">Cash On delivery</string>
+    <string name="credit">Credit Card</string>
     <string name="btnPaymentPrefernece">Proceed</string>
 </resources>

@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity
   private double total;
   private String name;
   private String adddress;
-
+  private int screenToShow;
 
 
   @Override
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity
     findViewById(R.id.btnProceed).setOnClickListener(this);
     findViewById(R.id.btnPaymentPreference).setOnClickListener(this);
     findViewById(R.id.btnSubmitCreditCard).setOnClickListener(this);
-    ((RadioGroup)findViewById(R.id.rgPayment)).setOnCheckedChangeListener(this);
+    ((RadioGroup) findViewById(R.id.rgPayment)).setOnCheckedChangeListener(this);
   }
 
   private void showScreen(int screenIndex) {
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity
 
   @Override
   public void onBackPressed() {
-    DrawerLayout drawer = ( DrawerLayout) findViewById(R.id.drawer_layout);
+    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     if (drawer.isDrawerOpen(GravityCompat.START)) {
       drawer.closeDrawer(GravityCompat.START);
     } else {
@@ -238,6 +238,9 @@ public class MainActivity extends AppCompatActivity
       case R.id.btnSubmitCreditCard:
         showScreen(PURCHASE_SUMMARY);
         break;
+      case R.id.btnPaymentPreference:
+        showScreen(screenToShow);
+        break;
     }
   }
 
@@ -269,11 +272,11 @@ public class MainActivity extends AppCompatActivity
   public void onCheckedChanged(RadioGroup group, int checkedId) {
     switch (checkedId) {
       case R.id.radio_cash:
-        showScreen(PURCHASE_SUMMARY);
+        screenToShow = PURCHASE_SUMMARY;
         break;
 
       case R.id.radio_credit:
-        showScreen(CREDIT);
+        screenToShow = CREDIT;
         break;
     }
   }
