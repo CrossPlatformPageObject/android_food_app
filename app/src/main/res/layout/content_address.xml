@@ -3,31 +3,42 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
-
     <TextView
+        android:id="@+id/tvUserDetails"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:labelFor="@+id/tvName"
-        android:text="Enter Name: "/>
+        android:text="Enter Your details"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:maxLines="1"/>
+
+
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginTop="60dp"-->
+        <!--android:labelFor="@+id/tvName"-->
+        <!--android:text="Enter Name: "/>-->
 
     <EditText
         android:id="@+id/tvName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Name"
         android:maxLines="1"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:labelFor="@+id/tvAddress"
-        android:text="Enter Name: "/>
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:labelFor="@+id/tvAddress"-->
+        <!--android:text="Enter Name: "/>-->
 
     <EditText
         android:id="@+id/tvAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="address"
+        android:hint="Address"
         android:maxLines="3"/>
 
     <Button

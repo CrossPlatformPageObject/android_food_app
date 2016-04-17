@@ -1,4 +1,4 @@
-package rajkiranbande.foodoo;
+package foodx.foodoo;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package rajkiranbande.foodoo;
+package foodx;
 
 public class FoodItem {
   String foodName;

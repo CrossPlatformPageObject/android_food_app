@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent" android:layout_height="@dimen/nav_header_height"
-              android:background="@drawable/side_nav_bar"
-              android:paddingBottom="@dimen/activity_vertical_margin"
-              android:paddingLeft="@dimen/activity_horizontal_margin"
-              android:paddingRight="@dimen/activity_horizontal_margin"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
 
-              android:layout_marginTop="80dp" android:orientation="vertical"
-              android:gravity="bottom">
+    <TextView
+        android:id="@+id/tvPurchaseSummary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="Purchase Summary"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:maxLines="1"/>
 
     <RadioGroup android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:layout_marginTop="20dp"
                 android:id="@+id/rgPayment"
                 android:orientation="vertical">
 
@@ -31,7 +38,7 @@
         android:id="@+id/btnPaymentPreference"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
         android:text="@string/btnPaymentPrefernece"/>
 </LinearLayout>

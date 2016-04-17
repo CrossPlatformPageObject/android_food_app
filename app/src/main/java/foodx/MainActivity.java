@@ -1,4 +1,4 @@
-package rajkiranbande.foodoo;
+package foodx;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,9 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -29,6 +27,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+
+import foodx.foodoo.R;
 
 public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemClickListener, View.OnClickListener, RadioGroup.OnCheckedChangeListener {
@@ -50,6 +50,10 @@ public class MainActivity extends AppCompatActivity
   private ListView lvCartItems;
   private ArrayAdapter<FoodItem> cartAdapter;
   private double total;
+  private String name;
+  private String adddress;
+
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +122,7 @@ public class MainActivity extends AppCompatActivity
     findViewById(R.id.vgAddress).setVisibility(View.GONE);
     findViewById(R.id.vgPayment).setVisibility(View.GONE);
     findViewById(R.id.vgCreditCard).setVisibility(View.GONE);
+    findViewById(R.id.vgPurchaseSummary).setVisibility(View.GONE);
 
     this.screenIndex = screenIndex;
     switch (screenIndex) {
@@ -224,6 +229,7 @@ public class MainActivity extends AppCompatActivity
         cartItems.add(selectedFoodItem);
         break;
       case R.id.btnCheckout:
+
         showScreen(ADDRESS);
         break;
       case R.id.btnProceed:

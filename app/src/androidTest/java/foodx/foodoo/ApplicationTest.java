@@ -1,4 +1,4 @@
-package rajkiranbande.foodoo;
+package foodx.foodoo;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
