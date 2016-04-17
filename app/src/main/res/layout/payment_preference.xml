@@ -5,11 +5,11 @@
                   android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tvPurchaseSummary"
+        android:id="@+id/tvPaymentMethod"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+            android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
-        android:text="Purchase Summary"
+        android:text="Select payment method:"
         android:textSize="20sp"
         android:textAlignment="center"
         android:maxLines="1"/>
