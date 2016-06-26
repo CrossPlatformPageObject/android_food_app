@@ -1,4 +1,4 @@
-# ios_food_app
+# Android_food_app
 
 This is sample app created for demostration of bulding framework for cross platform. 
 
